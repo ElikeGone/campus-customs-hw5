@@ -1,0 +1,171 @@
+{
+  "prompt": "Now that the MCP server is connected, test each of the three MCP tools by actually calling them through the MCP connection, not by directly calling the Python functions.\n\nUse sensible test inputs based on the three open tickets. For each tool, save the prompt I asked you, the exact tool name, and the tool output in output/mcp_smoke.json.\n\nVerify every returned value against data/campus_customs_new.db before saving the evidence. The values in mcp_smoke.json must match the working database. Don't invent or manually substitute tool outputs if an MCP call fails; report the failure and fix the connection instead.\n\nKeep the evidence clear enough that a grader can see that all three tools were successfully called through MCP. Update the Problem 4 follow-up in AI_prompts.md with this prompt and one sentence explaining that the first prompt connected the server but had not yet produced the required smoke-test evidence.",
+  "transport": "MCP stdio, using the campus-customs server from .mcp.json",
+  "server_command": {
+    "type": "stdio",
+    "command": ".venv/Scripts/python.exe",
+    "args": [
+      "mcp_server/server.py"
+    ]
+  },
+  "database": "data/campus_customs_new.db",
+  "run_at": "2026-10-05T02:30:35+00:00",
+  "tools_listed_by_server": [
+    "check_stock_and_price",
+    "get_invoice_details",
+    "get_lease_and_cash"
+  ],
+  "calls": [
+    {
+      "ticket": "101",
+      "tool": "check_stock_and_price",
+      "arguments": {
+        "sku": "CC-TEE-WHITE",
+        "size": "S"
+      },
+      "mcp_call_succeeded": true,
+      "output": {
+        "found": true,
+        "requested": {
+          "sku": "CC-TEE-WHITE",
+          "name": "Classic Bulldog Tee",
+          "size": "S",
+          "qty": 0,
+          "location": "Aisle B"
+        },
+        "all_sizes": [
+          {
+            "size": "L",
+            "qty": 3,
+            "location": "Aisle B"
+          },
+          {
+            "size": "M",
+            "qty": 5,
+            "location": "Aisle B"
+          },
+          {
+            "size": "S",
+            "qty": 0,
+            "location": "Aisle B"
+          },
+          {
+            "size": "XL",
+            "qty": 2,
+            "location": "Aisle B"
+          }
+        ],
+        "pricing": {
+          "unit_cost": 8.0,
+          "list_price": 28.0
+        }
+      },
+      "matches_database": true
+    },
+    {
+      "ticket": "103",
+      "tool": "check_stock_and_price",
+      "arguments": {
+        "sku": "CC-HOOD-NAVY",
+        "size": "M"
+      },
+      "mcp_call_succeeded": true,
+      "output": {
+        "found": true,
+        "requested": {
+          "sku": "CC-HOOD-NAVY",
+          "name": "Basic Hoodie Big Yale",
+          "size": "M",
+          "qty": 8,
+          "location": "Aisle A"
+        },
+        "all_sizes": [
+          {
+            "size": "L",
+            "qty": 14,
+            "location": "Aisle A"
+          },
+          {
+            "size": "M",
+            "qty": 8,
+            "location": "Aisle A"
+          },
+          {
+            "size": "S",
+            "qty": 4,
+            "location": "Aisle A"
+          },
+          {
+            "size": "XL",
+            "qty": 6,
+            "location": "Aisle A"
+          }
+        ],
+        "pricing": {
+          "unit_cost": 22.0,
+          "list_price": 58.0
+        }
+      },
+      "matches_database": true
+    },
+    {
+      "ticket": "101",
+      "tool": "get_invoice_details",
+      "arguments": {
+        "invoice_id": 501
+      },
+      "mcp_call_succeeded": true,
+      "output": {
+        "found": true,
+        "invoice": {
+          "id": 501,
+          "vendor_id": 1,
+          "amount": 840.0,
+          "due_date": "2026-08-28",
+          "status": "open",
+          "description": "Rush reprint CC-TEE-WHITE S"
+        },
+        "vendor": {
+          "id": 1,
+          "name": "Bulldog Print Co",
+          "specialty": "apparel reprint",
+          "lead_days": 5
+        },
+        "payments": [],
+        "today": "2026-08-31",
+        "overdue": true
+      },
+      "matches_database": true
+    },
+    {
+      "ticket": "102",
+      "tool": "get_lease_and_cash",
+      "arguments": {
+        "lease_id": 1
+      },
+      "mcp_call_succeeded": true,
+      "output": {
+        "found": true,
+        "lease": {
+          "id": 1,
+          "space_name": "Chapel Street shop",
+          "landlord": "Elm City Properties",
+          "monthly_rent": 2400.0,
+          "next_due": "2026-09-02",
+          "notes": null
+        },
+        "cash_accounts": [
+          {
+            "name": "checking",
+            "balance": 3400.0,
+            "date": "2026-08-31"
+          }
+        ],
+        "payments": [],
+        "today": "2026-08-31"
+      },
+      "matches_database": true
+    }
+  ],
+  "all_calls_succeeded_and_match_database": true
+}

@@ -1,0 +1,19 @@
+{
+  "ticket": {
+    "id": 101,
+    "type": "customer_order",
+    "requester": "Tauhid Zaman",
+    "subject": "Bulldog tee",
+    "sku": "CC-TEE-WHITE",
+    "size": "S",
+    "qty": 1,
+    "lease_id": null,
+    "invoice_id": 501,
+    "status": "open",
+    "notes": "Needs a tee in size S.",
+    "created_at": "2026-08-31T09:15:00-04:00"
+  },
+  "decision": null,
+  "error": "ModelHTTPError: status_code: 400, model_name: gpt-6-luna, body: {'message': \"azure-openai error: Function tools with reasoning_effort are not supported for gpt-6-luna-global in /v1/chat/completions. To use function tools, use /v1/responses or set reasoning_effort to 'none'.\", 'type': 'invalid_request_error', 'param': 'reasoning_effort', 'code': None}",
+  "delegations": []
+}

@@ -1,0 +1,75 @@
+[
+  {
+    "id": "p-571af720",
+    "ticket_id": 101,
+    "run_id": "0265e7d38585",
+    "type": "payment",
+    "amount": 840.0,
+    "details": {
+      "kind": "invoice",
+      "ref_id": 501,
+      "for_due_date": null,
+      "amount": 840.0,
+      "account": "checking",
+      "reason": "Pay the overdue invoice for the rush reprint linked to this order to clear the vendor's shipping block; subject to confirming it covers the required unit.",
+      "cash_before": 3400.0,
+      "cash_after": 2560.0,
+      "requires_human_approval": true
+    },
+    "status": "approved",
+    "created_at": "2026-10-05T03:51:01+00:00",
+    "decided_at": "2026-10-05T03:51:23+00:00",
+    "decided_by": "Elike",
+    "note": null,
+    "execution": {
+      "payment_id": 1,
+      "kind": "invoice",
+      "ref_id": 501,
+      "amount": 840.0,
+      "account": "checking",
+      "paid_at": "2026-08-31",
+      "approved_by": "Elike",
+      "cash_before": 3400.0,
+      "cash_after": 2560.0,
+      "invoice_id": 501,
+      "invoice_status": "paid"
+    }
+  },
+  {
+    "id": "p-3df498cf",
+    "ticket_id": 102,
+    "run_id": "dc8ff4b2039d",
+    "type": "payment",
+    "amount": 2400.0,
+    "details": {
+      "kind": "lease",
+      "ref_id": 1,
+      "for_due_date": "2026-09-02",
+      "amount": 2400.0,
+      "account": "checking",
+      "reason": "Rent due 2026-09-02; lease amount is $2,400 and checking currently holds $2,560.",
+      "cash_before": 2560.0,
+      "cash_after": 160.0,
+      "requires_human_approval": true
+    },
+    "status": "approved",
+    "created_at": "2026-10-05T03:51:50+00:00",
+    "decided_at": "2026-10-05T03:52:11+00:00",
+    "decided_by": "Elike",
+    "note": null,
+    "execution": {
+      "payment_id": 2,
+      "kind": "lease",
+      "ref_id": 1,
+      "amount": 2400.0,
+      "account": "checking",
+      "paid_at": "2026-08-31",
+      "approved_by": "Elike",
+      "cash_before": 2560.0,
+      "cash_after": 160.0,
+      "lease_id": 1,
+      "paid_for_due_date": "2026-09-02",
+      "new_next_due": "2026-10-02"
+    }
+  }
+]

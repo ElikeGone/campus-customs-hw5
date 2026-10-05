@@ -1,0 +1,259 @@
+{
+  "source": "Full Problem 9 run against data/campus_customs_new.db (evidence: output/problem9_evidence.json, output/audit_trail.json, output/api_runs/)",
+  "starting_checking_balance": 3400.0,
+  "ending_checking_balance": 160.0,
+  "cash_verified_against_database": true,
+  "tickets": [
+    {
+      "ticket_id": 101,
+      "final_status": "resolved",
+      "run_id": "0265e7d38585",
+      "outcome": "Not fillable from stock: size S had 0 on hand. The team proposed paying overdue invoice 501 ($840) so Bulldog Print Co would ship the rush reprint. A human approved it and the ticket was resolved. A customer update for Tauhid Zaman was drafted but not sent.",
+      "agents_involved": [
+        "Boss",
+        "Inventory",
+        "Accounting",
+        "Customer Service"
+      ],
+      "agent_contributions": [
+        {
+          "agent": "Boss",
+          "role": "coordinated and decided",
+          "delegated_to": [
+            "Accounting",
+            "Customer Service",
+            "Inventory"
+          ],
+          "mcp_tools": [
+            "get_open_tickets"
+          ],
+          "contribution": "Size S is out of stock (0 on hand), so the order cannot be fulfilled now. Bulldog Print Co's 5-day lead time is database-reported, but it will not ship while invoice 501 remains unpaid; therefore no delivery date can be promised. Propose paying the overdue $840 invoice to clear that block, subject to human approval. The invoice is described as the rush reprint, but its details do not state the quantity, so confirm it covers this one-unit order before relying on it. No separate purchase order is proposed pending that confirmation. Note the open rent ticket: accounting reports $2,400 rent due 2026-09-02; paying both that and invoice 501 from the reported $3,400 checking balance would leave $160."
+        },
+        {
+          "agent": "Inventory",
+          "delegated_to": [
+            "Accounting"
+          ],
+          "mcp_tools": [
+            "check_stock_and_price",
+            "get_vendors"
+          ],
+          "contribution": [
+            "Ticket 101 cannot be fulfilled from current CC-TEE-WHITE size S stock: on hand is 0, leaving a shortage of 1. Bulldog Print Co is the apparel-reprint vendor, but its shipment is blocked by unpaid invoice 501. Its database lead time is 5 days (nominally September 5 from the desk date of August 31), but that timing depends on clearing the invoice. Accounting confirms invoice 501 is unpaid and recommends pursuing payment, subject to human approval.",
+            "The requested size S cannot be fulfilled from current stock: 0 are on hand, so the shortage for 1 tee is 1. Bulldog Print Co is the apparel reprint vendor, with a 5-day lead time; using the desk date 2026-08-31, a reprint would have a lead-time date of 2026-09-05. The vendor has an open invoice and cannot ship until it is paid. Ask accounting about the invoice. No order has been placed or proposed."
+          ]
+        },
+        {
+          "agent": "Accounting",
+          "delegated_to": [],
+          "mcp_tools": [
+            "check_stock_and_price",
+            "get_invoice_details",
+            "get_lease_and_cash",
+            "get_vendors"
+          ],
+          "contribution": [
+            "Invoice 501 is open and overdue; propose paying its full $840 balance from checking, subject to human approval. The vendor, Bulldog Print Co, has a 5-day lead time and will not ship while invoice 501 remains unpaid. The requested size S is out of stock. A second purchase order is not proposed because invoice 501 already describes the rush reprint for this exact SKU/size; confirm that this invoice covers the customer's required unit. Product unit cost is $8 and list price is $28, giving $20 gross profit per unit at list price (71.4% gross margin). The proposed invoice payment leaves checking at $2,560. The cash lookup also shows $2,400 rent due 2026-09-02; if that rent is also paid from checking, $160 would remain, so both amounts fit the reported $3,400 balance.",
+            "Invoice 501 is open and overdue, with no payments recorded. Bulldog Print Co has an unpaid invoice and will not ship while it remains unpaid, so paying it is the necessary step to unblock the rush reprint. Recommend pursuing payment, subject to human approval. The checking balance can cover the $840 invoice; after payment it would be $2,560. This leaves $160 beyond the $2,400 rent due September 2, so the cash trade-off is tight if rent is paid from checking. No payment has been executed.",
+            "Invoice 501 for Bulldog Print Co is open for $840.00, due 2026-08-28, and overdue as of 2026-08-31. No payments are recorded against it. No payment has been proposed in this response, and none has been approved or executed by me; any payment would require human approval. Vendor lead time is 5 days."
+          ]
+        },
+        {
+          "agent": "Customer Service",
+          "delegated_to": [
+            "Accounting",
+            "Inventory"
+          ],
+          "mcp_tools": [
+            "check_stock_and_price"
+          ],
+          "contribution": "Drafted a customer update for Tauhid Zaman. The requested tee size is out of stock, and no delivery date can be promised while the vendor cannot ship pending resolution of its unpaid invoice. Draft only; no message has been sent."
+        }
+      ],
+      "delegations": {
+        "total": 8,
+        "completed": 6,
+        "refused_by_guardrails": 2
+      },
+      "mcp_tool_calls": 14,
+      "human_approvals": [
+        {
+          "proposal_id": "p-571af720",
+          "type": "payment",
+          "kind": "invoice",
+          "ref_id": 501,
+          "amount": 840.0,
+          "approved_by": "Elike",
+          "payment_id": 1,
+          "paid_at": "2026-08-31",
+          "checking_before": 3400.0,
+          "checking_after": 2560.0
+        }
+      ],
+      "drafts_not_sent": [
+        {
+          "to": "Tauhid Zaman",
+          "subject": "Update on your Classic Bulldog Tee order"
+        }
+      ],
+      "boss_needs_human_approval": true
+    },
+    {
+      "ticket_id": 102,
+      "final_status": "resolved",
+      "run_id": "dc8ff4b2039d",
+      "outcome": "The rent notice matched lease 1 ($2,400 due 2026-09-02). The team proposed paying the rent, a human approved it, and the ticket was resolved with $160 left in checking.",
+      "agents_involved": [
+        "Boss",
+        "Inventory",
+        "Accounting",
+        "Facilities"
+      ],
+      "agent_contributions": [
+        {
+          "agent": "Boss",
+          "role": "coordinated and decided",
+          "delegated_to": [
+            "Accounting",
+            "Facilities"
+          ],
+          "mcp_tools": [
+            "get_lease_and_cash",
+            "get_open_tickets"
+          ],
+          "contribution": "The $2,400 rent for lease 1 is due on 2026-09-02, two days after the desk date of 2026-08-31, matching the notice. Propose paying it from checking: the reported $2,560 balance covers rent and would leave $160. Ticket 101's linked vendor invoice is already paid, so it is not a competing proposed payment. Ticket 103 remains open and its potential hoodie purchase cost is unknown, so the available information does not establish whether $160 would cover that possible purchase; no purchase payment has been proposed for it here."
+        },
+        {
+          "agent": "Inventory",
+          "delegated_to": [],
+          "mcp_tools": [
+            "check_stock_and_price",
+            "get_vendors"
+          ],
+          "contribution": "No exact purchase-order quantity or total cash need can be established from the available details. Ticket 101 identifies CC-TEE-WHITE, size S, but gives no requested reprint quantity; stock is 0, so the shortage equals the unprovided requested quantity. Its unit cost is $8.00. Ticket 103 requests 20 hoodies in size M, but no hoodie SKU was provided, so I cannot verify size-M stock or unit cost. Bulldog Print Co is the apparel-reprint vendor, has a 5-day lead time, and has no unpaid invoice; any order remains subject to human approval. No PO is proposed pending the missing quantities/SKU."
+        },
+        {
+          "agent": "Accounting",
+          "delegated_to": [
+            "Inventory"
+          ],
+          "mcp_tools": [
+            "check_stock_and_price",
+            "get_invoice_details",
+            "get_lease_and_cash",
+            "get_vendors"
+          ],
+          "contribution": [
+            "Lease 1 rent is affordable from checking on its own: paying $2,400 from the $2,560 balance would leave $160. I cannot confirm affordability alongside the shop\u2019s other proposed payments because their amounts/accounts were not available in this ticket context, so I am not proposing the lease payment pending the combined checking total.",
+            "Rent can be proposed from checking: the $2,400 payment leaves $160 from the reported $2,560 balance. Ticket 101's linked $840 invoice (501) is already paid, so it is not a competing open payment. Ticket 103's potential hoodie purchase cost cannot be established because no SKU was provided and the stock/price lookup for \u201choodie\u201d returned no inventory rows. Thus the rent fits on its own, but available data does not establish whether the remaining $160 is enough for any ticket 103 purchase need."
+          ]
+        },
+        {
+          "agent": "Facilities",
+          "delegated_to": [
+            "Accounting"
+          ],
+          "mcp_tools": [
+            "get_lease_and_cash"
+          ],
+          "contribution": "Lease 1 is for the Chapel Street shop, with Elm City Properties as landlord and monthly rent of $2,400. The recorded next due date is 2026-09-02; from the desk date 2026-08-31, rent is due in 2 days, matching the notice. Checking has $2,560, so rent alone would leave $160, but accounting could not confirm that it fits alongside other proposed payments and made no payment proposal. Recommended next step: confirm the other proposed checking payments with accounting before proposing rent; do not pay without human approval."
+        }
+      ],
+      "delegations": {
+        "total": 6,
+        "completed": 4,
+        "refused_by_guardrails": 2
+      },
+      "mcp_tool_calls": 10,
+      "human_approvals": [
+        {
+          "proposal_id": "p-3df498cf",
+          "type": "payment",
+          "kind": "lease",
+          "ref_id": 1,
+          "amount": 2400.0,
+          "approved_by": "Elike",
+          "payment_id": 2,
+          "paid_at": "2026-08-31",
+          "checking_before": 2560.0,
+          "checking_after": 160.0
+        }
+      ],
+      "drafts_not_sent": [],
+      "boss_needs_human_approval": true
+    },
+    {
+      "ticket_id": 103,
+      "final_status": "resolved",
+      "run_id": "91cf9172734d",
+      "outcome": "Only 8 of the 20 size-M hoodies were in stock. The 12-hoodie reprint (~$264) was more than the $160 in checking, so no purchase order was proposed. The Boss approved a conditional 10% bulk discount ($52.20 per hoodie) and a draft reply to Yale AI Club. Resolved with no cash movement.",
+      "agents_involved": [
+        "Boss",
+        "Inventory",
+        "Accounting",
+        "Customer Service"
+      ],
+      "agent_contributions": [
+        {
+          "agent": "Boss",
+          "role": "coordinated and decided",
+          "delegated_to": [
+            "Accounting",
+            "Customer Service",
+            "Inventory"
+          ],
+          "mcp_tools": [
+            "get_open_tickets"
+          ],
+          "contribution": "Approve a maximum 10% bulk discount for this order if all 20 units can be confirmed for fulfillment: $52.20 per hoodie, or $1,044 total. This remains above the $22/unit cost ($604 gross profit across 20 at that price). Do not confirm the quantity or a delivery date now: only 8 size-M hoodies are in stock. Replenishing the 12-unit shortfall would cost an estimated $264, while checking has $160, so no purchase order is proposed; the $104 gap must be resolved before relying on a reprint. Bulldog Print Co has a 5-day lead time and no unpaid-invoice blocker, but that does not overcome the current cash shortfall. The open-ticket check showed no other open tickets competing for stock or cash."
+        },
+        {
+          "agent": "Inventory",
+          "delegated_to": [
+            "Accounting"
+          ],
+          "mcp_tools": [
+            "check_stock_and_price",
+            "get_vendors"
+          ],
+          "contribution": "Ticket 103: 8 of 20 CC-HOOD-NAVY hoodies in size M are available at Aisle A, leaving a shortage of 12. Other sizes are available, but no substitution is assumed. Bulldog Print Co is the fitting apparel-reprint vendor; it has no unpaid invoice blocking shipment and its 5-day lead time gives a ready-by date of 2026-09-05 from the desk date 2026-08-31. Proposed reprint of the 12-unit shortage requires human approval. For the bulk-discount request, accounting reports the $58 list price and $22 unit cost; the cost-only break-even threshold is $22/unit before other expenses. This is not a discount recommendation."
+        },
+        {
+          "agent": "Accounting",
+          "delegated_to": [],
+          "mcp_tools": [
+            "check_stock_and_price",
+            "get_lease_and_cash",
+            "get_vendors"
+          ],
+          "contribution": [
+            "For 20 hoodies, the listed price is $58 each and the unit cost is $22. That leaves $36 per unit ($720 across 20) before other expenses at list price. A discount can be as much as $36 per hoodie (about 62.1% off list) before the price reaches the product-cost break-even floor of $22 each; pricing below $22 would not cover unit cost. The tool reports only 8 size-M units in stock, so the request is short by 12. No customer contact or changes were made.",
+            "Ticket 103: The MCP stock/pricing lookup shows 8 units of CC-HOOD-NAVY, size M, in stock, versus the requested 20, leaving a 12-unit shortfall. Unit list price is $58 and unit cost is $22. For 20 units at list price, total revenue is $1,160, total cost is $440, gross profit is $720, and gross margin is 62.1%. At a plausible 10% discount, price is $52.20/unit, revenue is $1,044, gross profit is $604, and gross margin is 57.9%. At 15% off, price is $49.30/unit, revenue is $986, gross profit is $546, and gross margin is 55.4%. Recommendation: cap the bulk discount at 10%, contingent on being able to fulfill all 20; do not promise the requested quantity yet. Vendor data lists Bulldog Print Co (vendor 1) as the apparel reprint specialist, with a 5-day lead time and no open invoices, so that vendor is not blocked by an unpaid invoice. A 12-unit replenishment would cost $264 at the MCP unit cost. The cash lookup reports checking at $160 as of 2026-08-31, so it is $104 short of that estimated purchase cost. No PO is proposed because the available cash cannot cover the required replenishment without exceeding the balance; no payment or PO is proposed. The cash lookup also reports the next rent due date as 2026-10-02 and a recorded $2,400 lease payment on 2026-08-31; that does not change the reported current $160 checking balance."
+          ]
+        },
+        {
+          "agent": "Customer Service",
+          "delegated_to": [],
+          "mcp_tools": [
+            "check_stock_and_price"
+          ],
+          "contribution": "Drafted a tactful reply that confirms 8 size-M hoodies are currently in stock, does not promise all 20 or a delivery date, and asks whether Yale AI Club would consider split fulfillment or alternatives. The discount request remains under review."
+        }
+      ],
+      "delegations": {
+        "total": 4,
+        "completed": 4,
+        "refused_by_guardrails": 0
+      },
+      "mcp_tool_calls": 8,
+      "human_approvals": [],
+      "drafts_not_sent": [
+        {
+          "to": "Yale AI Club",
+          "subject": "Your hoodie request"
+        }
+      ],
+      "boss_needs_human_approval": false
+    }
+  ]
+}

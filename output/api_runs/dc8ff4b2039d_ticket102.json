@@ -1,0 +1,171 @@
+{
+  "ticket": {
+    "id": 102,
+    "type": "rent_notice",
+    "requester": "Elm City Properties",
+    "subject": "Rent due",
+    "sku": null,
+    "size": null,
+    "qty": null,
+    "lease_id": 1,
+    "invoice_id": null,
+    "status": "open",
+    "notes": "Email: shop rent due in 2 days.",
+    "created_at": "2026-08-31T11:05:00-04:00"
+  },
+  "decision": {
+    "ticket_id": 102,
+    "agents_consulted": [
+      "facilities",
+      "accounting"
+    ],
+    "decision": "The $2,400 rent for lease 1 is due on 2026-09-02, two days after the desk date of 2026-08-31, matching the notice. Propose paying it from checking: the reported $2,560 balance covers rent and would leave $160. Ticket 101's linked vendor invoice is already paid, so it is not a competing proposed payment. Ticket 103 remains open and its potential hoodie purchase cost is unknown, so the available information does not establish whether $160 would cover that possible purchase; no purchase payment has been proposed for it here.",
+    "next_steps": [
+      "Request human approval before making the $2,400 rent payment.",
+      "Confirm the hoodie SKU and any proposed purchase cost for ticket 103 before committing other checking funds."
+    ],
+    "proposed_payments": [
+      {
+        "kind": "lease",
+        "ref_id": 1,
+        "for_due_date": "2026-09-02",
+        "amount": 2400.0,
+        "account": "checking",
+        "reason": "Rent due 2026-09-02; lease amount is $2,400 and checking currently holds $2,560.",
+        "cash_before": 2560.0,
+        "cash_after": 160.0,
+        "requires_human_approval": true
+      }
+    ],
+    "proposed_purchase_orders": [],
+    "drafts": [],
+    "needs_human_approval": true,
+    "approval_reason": "Rent payment requires human approval. The proposed amount is affordable against the reported checking balance, but ticket 103's potential hoodie purchase cost is unknown, so remaining cash after rent may constrain that separate open ticket."
+  },
+  "error": null,
+  "delegations": [
+    {
+      "from_agent": "boss",
+      "to_agent": "facilities",
+      "task": "Ticket 102 rent_notice from Elm City Properties; lease_id 1, notes say rent due in 2 days. Review lease obligation, due timing against desk date, payment options and any recommended next steps. Name the MCP tool behind each fact; do not execute payment.",
+      "depth": 1,
+      "result": {
+        "agent": "facilities",
+        "summary": "Lease 1 is for the Chapel Street shop, with Elm City Properties as landlord and monthly rent of $2,400. The recorded next due date is 2026-09-02; from the desk date 2026-08-31, rent is due in 2 days, matching the notice. Checking has $2,560, so rent alone would leave $160, but accounting could not confirm that it fits alongside other proposed payments and made no payment proposal. Recommended next step: confirm the other proposed checking payments with accounting before proposing rent; do not pay without human approval.",
+        "facts_used": [
+          "get_lease_and_cash: lease 1 is for the Chapel Street shop and names Elm City Properties as landlord.",
+          "get_lease_and_cash: monthly rent is $2,400 and next_due is 2026-09-02.",
+          "get_lease_and_cash: desk date is 2026-08-31; the interval to the due date is 2 days.",
+          "get_lease_and_cash: checking balance is $2,560 and no payments against lease 1 were returned; rent alone would leave $160.",
+          "Accounting report based on get_lease_and_cash: other proposed payment amounts/accounts were unavailable, so affordability alongside those payments could not be confirmed; no rent payment was proposed."
+        ],
+        "proposed_payments": [],
+        "proposed_purchase_orders": [],
+        "drafts": [],
+        "needs_human_approval": false,
+        "open_questions": [
+          "What other payments are proposed from checking, and for what amounts? Accounting can then assess whether rent fits within the $2,560 balance."
+        ]
+      },
+      "error": null
+    },
+    {
+      "from_agent": "facilities",
+      "to_agent": "accounting",
+      "task": "Ticket 102: Please confirm whether paying lease 1 rent of $2,400 from checking is affordable alongside the shop's other proposed payments. Lease tool result: monthly rent $2,400, next_due 2026-09-02; desk date 2026-08-31; checking balance $2,560; no recorded payments returned. If affordable, return a proposed lease payment for lease_id 1, for_due_date 2026-09-02, with cash_before/cash_after, and any required human approval. Do not execute payment.",
+      "depth": 2,
+      "result": {
+        "agent": "accounting",
+        "summary": "Lease 1 rent is affordable from checking on its own: paying $2,400 from the $2,560 balance would leave $160. I cannot confirm affordability alongside the shop\u2019s other proposed payments because their amounts/accounts were not available in this ticket context, so I am not proposing the lease payment pending the combined checking total.",
+        "facts_used": [
+          "get_lease_and_cash: lease 1 monthly rent is $2,400 and next_due is 2026-09-02.",
+          "get_lease_and_cash: desk date is 2026-08-31; checking balance is $2,560.",
+          "get_lease_and_cash: no payments against lease 1 were returned."
+        ],
+        "proposed_payments": [],
+        "proposed_purchase_orders": [],
+        "drafts": [],
+        "needs_human_approval": false,
+        "open_questions": [
+          "What other payments are proposed from checking, and for what amounts? Once known, affordability can be assessed against the $2,560 balance."
+        ]
+      },
+      "error": null
+    },
+    {
+      "from_agent": "accounting",
+      "to_agent": "facilities",
+      "task": "Ticket 102: Please identify any rent obligation details or other proposed payments relevant to affordability of lease 1 rent $2,400 due 2026-09-02, checking balance reportedly $2,560. Return whether other proposed obligations/payments are known from your task context. Do not execute.",
+      "depth": 3,
+      "result": null,
+      "error": "facilities is already working on this request higher up the chain (boss -> facilities -> accounting). Return your findings in your report instead."
+    },
+    {
+      "from_agent": "accounting",
+      "to_agent": "boss",
+      "task": "Ticket 102 accounting: I verified lease 1 rent $2,400 due 2026-09-02 and checking $2,560 (lease tool). Are there other proposed payments in the shop's current request that need to be included in the affordability total? I can only propose lease if combined checking payments won't exceed cash.",
+      "depth": 3,
+      "result": null,
+      "error": "boss is already working on this request higher up the chain (boss -> facilities -> accounting). Return your findings in your report instead."
+    },
+    {
+      "from_agent": "boss",
+      "to_agent": "accounting",
+      "task": "Ticket 102 rent_notice, lease_id 1: Elm City Properties says rent due in 2 days; facilities reports rent $2,400 due 2026-09-02, desk date 2026-08-31, checking $2,560. Assess whether rent can be proposed from checking given any competing open-ticket cash needs, and state a payment proposal if appropriate. Name MCP tool behind each fact. Do not execute payment.",
+      "depth": 1,
+      "result": {
+        "agent": "accounting",
+        "summary": "Rent can be proposed from checking: the $2,400 payment leaves $160 from the reported $2,560 balance. Ticket 101's linked $840 invoice (501) is already paid, so it is not a competing open payment. Ticket 103's potential hoodie purchase cost cannot be established because no SKU was provided and the stock/price lookup for \u201choodie\u201d returned no inventory rows. Thus the rent fits on its own, but available data does not establish whether the remaining $160 is enough for any ticket 103 purchase need.",
+        "facts_used": [
+          "get_lease_and_cash: lease 1 is $2,400 monthly rent, next due 2026-09-02; checking balance is $2,560; desk date is 2026-08-31; no lease payments are listed.",
+          "get_invoice_details: invoice 501 is $840, status paid, with an $840 payment recorded from checking on 2026-08-31; no additional payment is proposed for it.",
+          "get_vendors: desk date is 2026-08-31; Bulldog Print Co has no unpaid invoices (relevant vendor status for ticket 101).",
+          "check_stock_and_price: lookup for SKU \u201choodie\u201d, size M returned no inventory rows, so the hoodie unit cost and PO amount could not be verified."
+        ],
+        "proposed_payments": [
+          {
+            "kind": "lease",
+            "ref_id": 1,
+            "for_due_date": "2026-09-02",
+            "amount": 2400.0,
+            "account": "checking",
+            "reason": "Rent for lease 1 due 2026-09-02; proposed amount matches lease rent, and checking covers it while retaining $160.",
+            "cash_before": 2560.0,
+            "cash_after": 160.0,
+            "requires_human_approval": true
+          }
+        ],
+        "proposed_purchase_orders": [],
+        "drafts": [],
+        "needs_human_approval": true,
+        "open_questions": [
+          "What is the hoodie SKU for ticket 103, so its stock and potential purchase cost can be checked?"
+        ]
+      },
+      "error": null
+    },
+    {
+      "from_agent": "accounting",
+      "to_agent": "inventory",
+      "task": "Ticket 102 accounting cash assessment: identify any inventory/restock purchase orders recommended for open tickets 101 (CC-TEE-WHITE size S; invoice 501 rush reprint) and 103 (request for 20 hoodies size M), including exact SKU/qty, if you can. Need estimated cash needs only if available via source tools; do not place orders. Report tool sources.",
+      "depth": 2,
+      "result": {
+        "agent": "inventory",
+        "summary": "No exact purchase-order quantity or total cash need can be established from the available details. Ticket 101 identifies CC-TEE-WHITE, size S, but gives no requested reprint quantity; stock is 0, so the shortage equals the unprovided requested quantity. Its unit cost is $8.00. Ticket 103 requests 20 hoodies in size M, but no hoodie SKU was provided, so I cannot verify size-M stock or unit cost. Bulldog Print Co is the apparel-reprint vendor, has a 5-day lead time, and has no unpaid invoice; any order remains subject to human approval. No PO is proposed pending the missing quantities/SKU.",
+        "facts_used": [
+          "check_stock_and_price: CC-TEE-WHITE size S has 0 on hand; other size stock is L=3, M=5, XL=2; unit cost is $8.00.",
+          "get_vendors: desk date is 2026-08-31; Bulldog Print Co specializes in apparel reprint, lead time 5 days, and has no open unpaid invoice."
+        ],
+        "proposed_payments": [],
+        "proposed_purchase_orders": [],
+        "drafts": [],
+        "needs_human_approval": false,
+        "open_questions": [
+          "What quantity is requested for ticket 101's CC-TEE-WHITE size-S reprint?",
+          "What is the hoodie SKU for ticket 103 so I can check size-M availability and cost?"
+        ]
+      },
+      "error": null
+    }
+  ]
+}
